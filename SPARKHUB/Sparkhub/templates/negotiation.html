@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negotiation Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        textarea {
+            resize: none;
+        }
+        #negotiationList {
+            margin-top: 30px;
+        }
+        #negotiationItems {
+            list-style: none;
+            padding: 0;
+        }
+        #negotiationItems li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Negotiation Page</h1>
+        
+        <!-- Form to initiate negotiation -->
+        <form id="negotiationForm">
+            <div class="form-group">
+                <label for="influencer">Influencer:</label>
+                <input type="text" class="form-control" id="influencer" required>
+            </div>
+            <div class="form-group">
+                <label for="brand">Brand:</label>
+                <input type="text" class="form-control" id="brand" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea class="form-control" id="message" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
+        <!-- Display existing negotiations -->
+        <div id="negotiationList">
+            <h2>Existing Negotiations</h2>
+            <ul id="negotiationItems">
+                <li>John Doe - ABC Brand: Lorem ipsum dolor sit amet.</li>
+                <li>Jane Smith - XYZ Brand: Consectetur adipiscing elit.</li>
+                <li>Michael Johnson - PQR Brand: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Handle form submission via AJAX
+        $(document).ready(function() {
+            $('#negotiationForm').submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '/negotiation',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            // Reload page to update negotiation list
+                            location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
